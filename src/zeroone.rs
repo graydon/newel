@@ -1,3 +1,6 @@
+// Copyright 2019-2020 Graydon Hoare <graydon@pobox.com>
+// Licensed under the MIT and Apache-2.0 licenses.
+
 // This code is copied from `const-identities` (MIT licensed);
 // that crate depends on things I don't want to depend on,
 // and doesn't support u128/i128.

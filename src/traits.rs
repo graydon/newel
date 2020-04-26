@@ -1,3 +1,5 @@
+// Copyright 2019-2020 Graydon Hoare <graydon@pobox.com>
+// Licensed under the MIT and Apache-2.0 licenses.
 
 pub trait ScalarT: Sized {}
 impl ScalarT for bool {}
@@ -19,19 +21,16 @@ pub enum OpError {
 }
 
 pub trait UnOp<SRC: ScalarT, DST: ScalarT> {
-    #[inline(never)]
     fn apply_slice<'src, 'dst>(src: &'src [SRC],
                                dst: &'dst mut [DST])
                                -> Result<&'dst [DST], OpError>
     where
         'src: 'dst;
 
-    #[inline(never)]
     fn apply_const(src: SRC) -> Result<DST, OpError>;
 }
 
 pub trait BinOp<SRC: ScalarT, DST: ScalarT> {
-    #[inline(never)]
     fn apply_slice_slice<'src, 'dst>(lhs: &'src [SRC],
                                      rhs: &'src [SRC],
                                      dst: &'dst mut [DST])
@@ -39,7 +38,6 @@ pub trait BinOp<SRC: ScalarT, DST: ScalarT> {
     where
         'src: 'dst;
 
-    #[inline(never)]
     fn apply_slice_const<'src, 'dst>(lhs: &'src [SRC],
                                      rhs: SRC,
                                      dst: &'dst mut [DST])
@@ -47,7 +45,6 @@ pub trait BinOp<SRC: ScalarT, DST: ScalarT> {
     where
         'src: 'dst;
 
-    #[inline(never)]
     fn apply_const_slice<'src, 'dst>(lhs: SRC,
                                      rhs: &'src [SRC],
                                      dst: &'dst mut [DST])
@@ -55,6 +52,5 @@ pub trait BinOp<SRC: ScalarT, DST: ScalarT> {
     where
         'src: 'dst;
 
-    #[inline(never)]
     fn apply_const_const(lhs: SRC, rhs: SRC) -> Result<DST, OpError>;
 }

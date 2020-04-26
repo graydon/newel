@@ -1,12 +1,13 @@
 [package]
 name = "newel"
 description = "small vectorized evaluator"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Graydon Hoare <graydon@pobox.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 keywords = ["vector", "simd", "array", "column", "evaluator"]
 repository = "http://github.com/graydon/newel"
+readme = "README.md"
 
 
 [profile.release]

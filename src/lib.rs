@@ -1,3 +1,6 @@
+// Copyright 2019-2020 Graydon Hoare <graydon@pobox.com>
+// Licensed under the MIT and Apache-2.0 licenses.
+
 /*!
  * This crate provides a set of bulk homogeneous-slice-typed operations. It's to
  * be used as a building block for collection-oriented evaluators that don't

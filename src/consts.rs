@@ -1,3 +1,6 @@
+// Copyright 2019-2020 Graydon Hoare <graydon@pobox.com>
+// Licensed under the MIT and Apache-2.0 licenses.
+
 use std::mem::size_of;
 
 // We write all our SIMD code over 0x40-byte = 64-byte = 512-bit vectors, which

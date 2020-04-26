@@ -1,3 +1,6 @@
+// Copyright 2019-2020 Graydon Hoare <graydon@pobox.com>
+// Licensed under the MIT and Apache-2.0 licenses.
+
 #[macro_use]
 extern crate bencher;
 extern crate newel;

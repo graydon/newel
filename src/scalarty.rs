@@ -1,3 +1,6 @@
+// Copyright 2019-2020 Graydon Hoare <graydon@pobox.com>
+// Licensed under the MIT and Apache-2.0 licenses.
+
 /// All `Operand`s in newel have an underlying `ScalarTy` which is the type of
 /// every element in a homogeneous `Slice` operand, or the type of the sole
 /// element of a `Const` operand. The `ScalarTy` is
