@@ -49,6 +49,11 @@ fn lt_u8(a: &u8, b: &u8, c: &mut bool) {
 }
 
 #[inline(never)]
+fn lt_u16(a: &u16, b: &u16, c: &mut bool) {
+    *c = *a < *b;
+}
+
+#[inline(never)]
 fn lt_u32(a: &u32, b: &u32, c: &mut bool) {
     *c = *a < *b;
 }
@@ -61,6 +66,11 @@ fn get_bool_testvec() -> Vec<bool> {
 #[inline(never)]
 fn get_u8_testvec(scale: u8) -> Vec<u8> {
     (0..0x100000u32).map(|x| (x as u8) * scale).collect()
+}
+
+#[inline(never)]
+fn get_u16_testvec(scale: u16) -> Vec<u16> {
+    (0..0x100000u32).map(|x| (x as u16) * scale).collect()
 }
 
 #[inline(never)]
@@ -173,6 +183,31 @@ fn lt_u8_newel(bench: &mut Bencher) {
     bench.bytes = (a.len() as u64) * (::std::mem::size_of::<u8>() as u64)
 }
 
+fn lt_u16_scalar(bench: &mut Bencher) {
+    let a: Vec<u16> = get_u16_testvec(1);
+    let b: Vec<u16> = get_u16_testvec(2);
+    let mut c: Vec<bool> = get_bool_testvec();
+    bench.iter(|| {
+        for ((av, bv), cv) in a.iter().zip(b.iter()).zip(c.iter_mut()) {
+            lt_u16(av, bv, cv)
+        }
+    });
+    bench.bytes = (a.len() as u64) * (::std::mem::size_of::<u16>() as u64)
+}
+
+fn lt_u16_newel(bench: &mut Bencher) {
+    let a: Vec<u16> = get_u16_testvec(1);
+    let b: Vec<u16> = get_u16_testvec(2);
+    let mut bcx = BenchCtx::new();
+    bench.iter(|| {
+        let res = bcx.get_eval_ctx().bool_binop(BoolBinOpCode::Lt,
+                                                &Operand::from(&a),
+                                                &Operand::from(&b));
+        assert!(res.is_ok());
+    });
+    bench.bytes = (a.len() as u64) * (::std::mem::size_of::<u16>() as u64)
+}
+
 fn lt_u32_scalar(bench: &mut Bencher) {
     let a: Vec<u32> = get_u32_testvec(1);
     let b: Vec<u32> = get_u32_testvec(2);
@@ -208,6 +243,8 @@ benchmark_group!(
     add_u64_newel,
     lt_u8_scalar,
     lt_u8_newel,
+    lt_u16_scalar,
+    lt_u16_newel,
     lt_u32_scalar,
     lt_u32_newel
 );
